@@ -16,7 +16,7 @@ internal final class YPLibraryVC: UIViewController, YPPermissionCheckable {
     internal var isProcessing = false // true if video or image is in processing state
     internal var selectedItems = [YPLibrarySelection]()
     internal let mediaManager = LibraryMediaManager()
-    internal var isMultipleSelectionEnabled = false
+    internal var isMultipleSelectionEnabled = true
     internal var currentlySelectedIndex: Int = 0
     internal let panGestureHelper = PanGestureHelper()
     internal var isInitialized = false

@@ -13,12 +13,12 @@ class YPMultipleSelectionIndicator: UIView {
     
     let circle = UIView()
     let label = UILabel()
-    var selectionColor = UIColor.ypSystemBlue
+    var selectionColor = YPConfig.colors.tintColor
 
     convenience init() {
         self.init(frame: .zero)
         
-        let size: CGFloat = 20
+        let size: CGFloat = 18
         
         subviews(
             circle,
@@ -41,13 +41,13 @@ class YPMultipleSelectionIndicator: UIView {
         label.isHidden = (number == nil)
         if let number = number {
             circle.backgroundColor = selectionColor
-            circle.layer.borderColor = UIColor.clear.cgColor
-            circle.layer.borderWidth = 0
-            label.text = "\(number)"
-        } else {
-            circle.backgroundColor = UIColor.white.withAlphaComponent(0.3)
             circle.layer.borderColor = UIColor.white.cgColor
             circle.layer.borderWidth = 1
+            label.text = "\(number)"
+        } else {
+            circle.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+            circle.layer.borderColor = UIColor.white.cgColor
+            circle.layer.borderWidth = 1.5
             label.text = ""
         }
     }
@@ -75,13 +75,13 @@ class YPLibraryViewCell: UICollectionViewCell {
         imageView.fillContainer()
         selectionOverlay.fillContainer()
         layout(
-            durationLabel-5-|,
+            durationLabel-6-|,
             5
         )
         
         layout(
-            3,
-            multipleSelectionIndicator-3-|
+            6,
+            multipleSelectionIndicator-6-|
         )
         
         imageView.contentMode = .scaleAspectFill
