@@ -91,7 +91,7 @@ internal class YPCameraView: UIView, UIGestureRecognizerDelegate {
         timeElapsedLabel.height(24).width(65).centerHorizontally()
         timeElapsedLabel.Bottom == shotButton.Top - 10
         
-        shotButton.Bottom == Bottom + 30.0
+        shotButton.Bottom == Bottom - 30.0
         shotButton.size(84).centerHorizontally()
         
         // Style

@@ -19,7 +19,7 @@ public struct YPFonts {
     /// The font used to show the duration in the LibraryViewCell
     public var durationFont: UIFont = .systemFont(ofSize: 12)
 
-    public var multipleSelectionIndicatorFont: UIFont = .systemFont(ofSize: 12, weight: .regular)
+    public var multipleSelectionIndicatorFont: UIFont = .systemFont(ofSize: 12, weight: .semibold)
 
     public var albumCellTitleFont: UIFont = .systemFont(ofSize: 16, weight: .regular)
 

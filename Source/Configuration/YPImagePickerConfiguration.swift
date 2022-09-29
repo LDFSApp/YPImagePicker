@@ -61,7 +61,7 @@ public struct YPImagePickerConfiguration {
     public var isScrollToChangeModesEnabled = true
 
     /// Set this to true if you want to force the camera output to be a squared image. Defaults to true
-    public var onlySquareImagesFromCamera = true
+    public var onlySquareImagesFromCamera = false
     
     /// Enables selecting the front camera by default, useful for avatars. Defaults to false
     public var usesFrontCamera = false
