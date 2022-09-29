@@ -69,7 +69,27 @@ open class YPBottomPager: UIViewController, UIScrollViewDelegate {
         // Build headers
         for (index, c) in controllers.enumerated() {
             let menuItem = YPMenuItem()
-            menuItem.textLabel.text = c.title?.capitalized
+            var icon: UIImage?
+            var offIcon: UIImage?
+            switch c {
+            case is YPLibraryVC:
+                icon = YPConfig.icons.libraryOnImage
+                offIcon = YPConfig.icons.libraryOffImage
+            case is YPCameraVC:
+                icon = YPConfig.icons.cameraOnImage
+                offIcon = YPConfig.icons.cameraOffImage
+            case is YPVideoCaptureVC:
+                icon = YPConfig.icons.videoOnImage
+                offIcon = YPConfig.icons.videoOffImage
+            default:
+                break
+            }
+            if YPConfig.isBottomBarTitle {
+                menuItem.textLabel.text = c.title?.capitalized
+            } else {
+                menuItem.button.setImage(offIcon, for: .normal)
+                menuItem.button.setImage(icon, for: .selected)
+            }
             menuItem.button.tag = index
             menuItem.button.addTarget(self,
                                       action: #selector(tabTapped(_:)),

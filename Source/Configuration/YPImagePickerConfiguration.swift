@@ -31,6 +31,10 @@ public struct YPImagePickerConfiguration {
     public var isDebugLogsEnabled: Bool = true
 
     public init() {}
+    /// Bottom bar height
+    public var bottomBarHeight: CGFloat = 50
+    /// Bottom bar use title string
+    public var isBottomBarTitle: Bool = false
     
     /// Library configuration
     public var library = YPConfigLibrary()

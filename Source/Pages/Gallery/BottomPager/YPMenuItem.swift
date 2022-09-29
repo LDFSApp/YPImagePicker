@@ -47,13 +47,16 @@ final class YPMenuItem: UIView {
             l.adjustsFontSizeToFitWidth = true
             l.numberOfLines = 2
         }
+        button.isSelected = false
     }
 
     func select() {
+        button.isSelected = true
         textLabel.textColor = YPImagePickerConfiguration.shared.colors.bottomMenuItemSelectedTextColor
     }
     
     func deselect() {
+        button.isSelected = false
         textLabel.textColor = YPImagePickerConfiguration.shared.colors.bottomMenuItemUnselectedTextColor
     }
 }

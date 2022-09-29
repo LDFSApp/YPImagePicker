@@ -268,6 +268,26 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         titleView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         navigationItem.titleView = titleView
     }
+    func setTitleViewWithOnlyTitle(aTitle: String) {
+        let titleView = UIView()
+        titleView.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
+        let label = UILabel()
+        label.text = aTitle
+        // Use YPConfig font
+        label.font = YPConfig.fonts.pickerTitleFont
+        // Use custom textColor if set by user.
+        if let navBarTitleColor = UINavigationBar.appearance().titleTextAttributes?[.foregroundColor] as? UIColor {
+            label.textColor = navBarTitleColor
+        }
+        titleView.subviews(
+            label
+        )
+        |-(>=8)-label.centerHorizontally()-(>=8)-|
+        align(horizontally: label)
+        label.firstBaselineAnchor.constraint(equalTo: titleView.bottomAnchor, constant: -14).isActive = true
+        titleView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        navigationItem.titleView = titleView
+    }
     
     func updateUI() {
         if !YPConfig.hidesCancelButton {
@@ -289,17 +309,15 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
             // Disable Next Button until minNumberOfItems is reached.
             navigationItem.rightBarButtonItem?.isEnabled =
                 libraryVC!.selectedItems.count >= YPConfig.library.minNumberOfItems
-
         case .camera:
             navigationItem.titleView = nil
-            title = cameraVC?.title
+            setTitleViewWithOnlyTitle(aTitle: cameraVC?.title ?? "")
             navigationItem.rightBarButtonItem = nil
         case .video:
             navigationItem.titleView = nil
-            title = videoVC?.title
+            setTitleViewWithOnlyTitle(aTitle: videoVC?.title ?? "")
             navigationItem.rightBarButtonItem = nil
         }
-
         navigationItem.rightBarButtonItem?.setFont(font: YPConfig.fonts.rightBarButtonFont, forState: .normal)
         navigationItem.rightBarButtonItem?.setFont(font: YPConfig.fonts.rightBarButtonFont, forState: .disabled)
         navigationItem.leftBarButtonItem?.setFont(font: YPConfig.fonts.leftBarButtonFont, forState: .normal)

@@ -27,4 +27,10 @@ public struct YPIcons {
     public var captureVideoOnImage: UIImage = imageFromBundle("yp_iconVideoCaptureRecording")
     public var playImage: UIImage = imageFromBundle("yp_play")
     public var removeImage: UIImage = imageFromBundle("yp_remove")
+    public var libraryOnImage: UIImage = imageFromBundle("book-pile")
+    public var libraryOffImage: UIImage = imageFromBundle("book-pileOff")
+    public var cameraOnImage: UIImage = imageFromBundle("photo-camera")
+    public var cameraOffImage: UIImage = imageFromBundle("photo-cameraOff")
+    public var videoOnImage: UIImage = imageFromBundle("video-camera")
+    public var videoOffImage: UIImage = imageFromBundle("video-cameraOff")
 }
