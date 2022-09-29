@@ -42,3 +42,4 @@ Pods/
 
 *.lock
 Package.resolved
+contents.xcworkspacedata
