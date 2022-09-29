@@ -6,14 +6,14 @@ let package = Package(
     name: "YPImagePicker",
     defaultLocalization: "en",
     platforms: [
-        .iOS(.v12)
+        .iOS(.v11)
     ],
     products: [
         .library(name: "YPImagePicker", targets: ["YPImagePicker"])
     ],
     dependencies: [
         .package(
-            url: "https://github.com/freshOS/Stevia",
+            url: "https://github.com/kjaylee/Stevia",
             .exact("5.1.2")
         ),
         .package(

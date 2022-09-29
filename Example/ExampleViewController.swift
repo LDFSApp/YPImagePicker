@@ -90,11 +90,11 @@ class ExampleViewController: UIViewController {
         config.library.mediaType = .photoAndVideo
 		config.library.itemOverlayType = .grid
         /* Enables selecting the front camera by default, useful for avatars. Defaults to false */
-        // config.usesFrontCamera = true
+        config.usesFrontCamera = true
 
         /* Adds a Filter step in the photo taking process. Defaults to true */
         // config.showsFilters = false
-
+        config.showsPhotoFilters = false
         /* Manage filters by yourself */
         // config.filters = [YPFilter(name: "Mono", coreImageFilterName: "CIPhotoEffectMono"),
         //                   YPFilter(name: "Normal", coreImageFilterName: "")]
