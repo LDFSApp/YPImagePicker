@@ -43,7 +43,7 @@ internal final class YPCameraVC: UIViewController, UIGestureRecognizerDelegate, 
     override internal func viewDidLoad() {
         super.viewDidLoad()
 
-        v.flashButton.isHidden = true
+        v.flashButton.isHidden = (true || YPConfig.flashButtonHidden)
         v.flashButton.addTarget(self, action: #selector(flashButtonTapped), for: .touchUpInside)
         v.shotButton.addTarget(self, action: #selector(shotButtonTapped), for: .touchUpInside)
         v.flipButton.addTarget(self, action: #selector(flipButtonTapped), for: .touchUpInside)
@@ -213,7 +213,7 @@ internal final class YPCameraVC: UIViewController, UIGestureRecognizerDelegate, 
         DispatchQueue.main.async {
             let flashImage = self.photoCapture.currentFlashMode.flashImage()
             self.v.flashButton.setImage(flashImage, for: .normal)
-            self.v.flashButton.isHidden = !self.photoCapture.hasFlash
+            self.v.flashButton.isHidden = (!self.photoCapture.hasFlash || YPConfig.flashButtonHidden)
         }
     }
 }

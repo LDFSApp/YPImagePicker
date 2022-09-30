@@ -203,7 +203,7 @@ internal class YPVideoCaptureVC: UIViewController, YPPermissionCheckable {
         }
         v.flashButton.setImage(flashImage(for: state.flashMode), for: .normal)
         v.flashButton.isEnabled = !state.isRecording
-        v.flashButton.isHidden = state.flashMode == .noFlash
+        v.flashButton.isHidden = (state.flashMode == .noFlash || YPConfig.flashButtonHidden)
         v.shotButton.setImage(state.isRecording ? YPConfig.icons.captureVideoOnImage : YPConfig.icons.captureVideoImage,
                               for: .normal)
         v.flipButton.isEnabled = !state.isRecording

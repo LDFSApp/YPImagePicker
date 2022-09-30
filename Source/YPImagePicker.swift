@@ -116,7 +116,18 @@ open class YPImagePicker: UINavigationController {
                 
                 func showCropVC(photo: YPMediaPhoto, completion: @escaping (_ aphoto: YPMediaPhoto) -> Void) {
                     switch YPConfig.showsCrop {
-                    case .rectangle, .circle:
+                    case .rectangle(let ratio):
+                        guard ratio != 1.0 else {
+                            completion(photo)
+                            return
+                        }
+                        let cropVC = YPCropVC(image: photo.image)
+                        cropVC.didFinishCropping = { croppedImage in
+                            photo.modifiedImage = croppedImage
+                            completion(photo)
+                        }
+                        self?.pushViewController(cropVC, animated: true)
+                    case .circle:
                         let cropVC = YPCropVC(image: photo.image)
                         cropVC.didFinishCropping = { croppedImage in
                             photo.modifiedImage = croppedImage

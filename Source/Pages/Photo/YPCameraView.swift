@@ -16,7 +16,12 @@ internal class YPCameraView: UIView, UIGestureRecognizerDelegate {
     let flipButton = UIButton()
     let shotButton = UIButton()
     let flashButton = UIButton()
-    let timeElapsedLabel = UILabel()
+    lazy var timeElapsedLabel = {
+        let v = UILabel()
+        v.layer.cornerRadius = 3.0
+        v.layer.masksToBounds = true
+        return v
+    }()
     let progressBar = UIProgressView()
     
     convenience init(overlayView: UIView? = nil) {
@@ -82,17 +87,17 @@ internal class YPCameraView: UIView, UIGestureRecognizerDelegate {
         
         overlayView?.followEdges(previewViewContainer)
         
-        |-(15+sideMargin)-flashButton.size(42)
-        flashButton.Bottom == previewViewContainer.Bottom - 15
+        |-(15+sideMargin)-flashButton.size(40)
+        flashButton.CenterY == shotButton.CenterY
         
-        flipButton.size(42)-(15+sideMargin)-|
-        flipButton.Bottom == previewViewContainer.Bottom - 15
+        flipButton.size(40)-(15+sideMargin)-|
+        flipButton.CenterY == shotButton.CenterY
         
         timeElapsedLabel.height(24).width(65).centerHorizontally()
         timeElapsedLabel.Bottom == shotButton.Top - 10
         
         shotButton.Bottom == Bottom - 30.0
-        shotButton.size(84).centerHorizontally()
+        shotButton.size(50).centerHorizontally()
         
         // Style
         timeElapsedLabel.backgroundColor = UIColor(red:0.86, green:0.27, blue:0.24, alpha:0.8)
@@ -100,7 +105,7 @@ internal class YPCameraView: UIView, UIGestureRecognizerDelegate {
         previewViewContainer.backgroundColor = UIColor.ypLabel
         timeElapsedLabel.style { l in
             l.textColor = .white
-            l.text = "00:00:00"
+            l.text = "00:00"
             l.isHidden = true
             l.font = YPConfig.fonts.cameraTimeElapsedFont
             l.textAlignment = .center

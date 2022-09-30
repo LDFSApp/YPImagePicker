@@ -65,6 +65,7 @@ public struct YPImagePickerConfiguration {
     
     /// Enables selecting the front camera by default, useful for avatars. Defaults to false
     public var usesFrontCamera = false
+    public var flashButtonHidden = true
     
     /// Adds a Filter step in the photo taking process.  Defaults to true
     public var showsPhotoFilters = true
@@ -192,7 +193,7 @@ public struct YPConfigLibrary {
     public var options: PHFetchOptions?
 
     /// Set this to true if you want to force the library output to be a squared image. Defaults to false.
-    public var onlySquare = false
+    public var onlySquare = true
     
     /// Sets the cropping style to square or not. Ignored if `onlySquare` is true. Defaults to true.
     public var isSquareByDefault = true
@@ -205,13 +206,14 @@ public struct YPConfigLibrary {
     public var mediaType = YPlibraryMediaType.photo
 
     /// Initial state of multiple selection button.
-    public var defaultMultipleSelection = false
+    public var defaultMultipleSelection = true
+    public var defaultMultipleSelectionButtonHidden = true
 
     /// Pre-selects the current item on setting multiple selection
     public var preSelectItemOnMultipleSelection = true
 
     /// Anything superior than 1 will enable the multiple selection feature.
-    public var maxNumberOfItems = 1
+    public var maxNumberOfItems = 10
     
     /// Anything greater than 1 will desactivate live photo and video modes (library only) and
     /// force users to select at least the number of items defined.
@@ -224,7 +226,7 @@ public struct YPConfigLibrary {
     public var spacingBetweenItems: CGFloat = 1.0
 
     /// Allow to skip the selections gallery when selecting the multiple media items. Defaults to false.
-    public var skipSelectionsGallery = false
+    public var skipSelectionsGallery = true
     
     /// Allow to preselected media items
     public var preselectedItems: [YPMediaItem]?

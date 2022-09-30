@@ -90,7 +90,7 @@ class ExampleViewController: UIViewController {
         config.library.mediaType = .photoAndVideo
 		config.library.itemOverlayType = .grid
         /* Enables selecting the front camera by default, useful for avatars. Defaults to false */
-        config.usesFrontCamera = true
+        config.usesFrontCamera = false
 
         /* Adds a Filter step in the photo taking process. Defaults to true */
         // config.showsFilters = false
@@ -124,7 +124,7 @@ class ExampleViewController: UIViewController {
         config.screens = [.library, .photo, .video]
 
         /* Can forbid the items with very big height with this property */
-        config.library.minWidthForItem = UIScreen.main.bounds.width * 0.8
+        config.library.minWidthForItem = UIScreen.main.bounds.width 
 
         /* Defines the time limit for recording videos.
            Default is 30 seconds. */
@@ -135,7 +135,7 @@ class ExampleViewController: UIViewController {
         config.video.libraryTimeLimit = 500.0
 
         /* Adds a Crop step in the photo taking process, after filters. Defaults to .none */
-        config.showsCrop = .rectangle(ratio: (16/9))
+        config.showsCrop = .rectangle(ratio: 1)
 
         /* Changes the crop mask color */
         // config.colors.cropOverlayColor = .green
