@@ -20,7 +20,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
     let albumsManager = YPAlbumsManager()
     var shouldHideStatusBar = false
     var initialStatusBarHidden = false
-    weak var pickerVCDelegate: YPPickerVCDelegate?
+    public weak var pickerVCDelegate: YPPickerVCDelegate?
     
     override open var prefersStatusBarHidden: Bool {
         return (shouldHideStatusBar || initialStatusBarHidden) && YPConfig.hidesStatusBar
