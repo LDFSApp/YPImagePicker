@@ -40,9 +40,9 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
     private var cameraVC: YPCameraVC?
     private var videoVC: YPVideoCaptureVC?
     
-    var mode = Mode.camera
+    public var mode = Mode.camera
     
-    var capturedImage: UIImage?
+    public var capturedImage: UIImage?
     
     open override func viewDidLoad() {
         super.viewDidLoad()
