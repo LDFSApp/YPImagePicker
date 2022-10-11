@@ -30,7 +30,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
     public var didClose:(() -> Void)?
     public var didSelectItems: (([YPMediaItem]) -> Void)?
     
-    enum Mode {
+    public enum Mode {
         case library
         case camera
         case video
@@ -141,7 +141,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
     
     internal func pagerScrollViewDidScroll(_ scrollView: UIScrollView) { }
     
-    func modeFor(vc: UIViewController) -> Mode {
+    open func modeFor(vc: UIViewController) -> Mode {
         switch vc {
         case is YPLibraryVC:
             return .library
@@ -154,11 +154,11 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         }
     }
     
-    func pagerDidSelectController(_ vc: UIViewController) {
+    open func pagerDidSelectController(_ vc: UIViewController) {
         updateMode(with: vc)
     }
     
-    func updateMode(with vc: UIViewController) {
+    open func updateMode(with vc: UIViewController) {
         stopCurrentCamera()
         
         // Set new mode
@@ -178,7 +178,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         updateUI()
     }
     
-    func stopCurrentCamera() {
+    open func stopCurrentCamera() {
         switch mode {
         case .library:
             libraryVC?.pausePlayer()
@@ -199,8 +199,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         ypLog("YPPickerVC deinited ✅")
     }
     
-    @objc
-    func navBarTapped() {
+    @objc open func navBarTapped() {
         guard !(libraryVC?.isProcessing ?? false) else {
             return
         }
@@ -217,7 +216,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         present(navVC, animated: true, completion: nil)
     }
     
-    func setTitleViewWithTitle(aTitle: String) {
+    open func setTitleViewWithTitle(aTitle: String) {
         let titleView = UIView()
         titleView.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
         
@@ -268,7 +267,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         titleView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         navigationItem.titleView = titleView
     }
-    func setTitleViewWithOnlyTitle(aTitle: String) {
+    open func setTitleViewWithOnlyTitle(aTitle: String) {
         let titleView = UIView()
         titleView.frame = CGRect(x: 0, y: 0, width: 200, height: 40)
         let label = UILabel()
@@ -289,7 +288,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         navigationItem.titleView = titleView
     }
     
-    func updateUI() {
+    open func updateUI() {
         if !YPConfig.hidesCancelButton {
             // Update Nav Bar state.
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: YPConfig.wordings.cancel,
@@ -323,8 +322,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         navigationItem.leftBarButtonItem?.setFont(font: YPConfig.fonts.leftBarButtonFont, forState: .normal)
     }
     
-    @objc
-    func close() {
+    @objc open func close() {
         // Cancelling exporting of all videos
         if let libraryVC = libraryVC {
             libraryVC.mediaManager.forseCancelExporting()
@@ -333,8 +331,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
     }
     
     // When pressing "Next"
-    @objc
-    func done() {
+    @objc open func done() {
         guard let libraryVC = libraryVC else { ypLog("YPLibraryVC deallocated"); return }
         
         if mode == .library {
@@ -349,7 +346,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         }
     }
     
-    func stopAll() {
+    open func stopAll() {
         libraryVC?.v.assetZoomableView.videoView.deallocate()
         videoVC?.stopCamera()
         cameraVC?.stopCamera()
