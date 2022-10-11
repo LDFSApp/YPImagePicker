@@ -10,7 +10,7 @@ import UIKit
 import Stevia
 import Photos
 
-protocol YPPickerVCDelegate: AnyObject {
+public protocol YPPickerVCDelegate: AnyObject {
     func libraryHasNoItems()
     func shouldAddToSelection(indexPath: IndexPath, numSelections: Int) -> Bool
 }
