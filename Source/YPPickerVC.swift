@@ -16,33 +16,38 @@ public protocol YPPickerVCDelegate: AnyObject {
 }
 
 open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
-    
-    let albumsManager = YPAlbumsManager()
-    var shouldHideStatusBar = false
-    var initialStatusBarHidden = false
-    public weak var pickerVCDelegate: YPPickerVCDelegate?
-    
-    override open var prefersStatusBarHidden: Bool {
-        return (shouldHideStatusBar || initialStatusBarHidden) && YPConfig.hidesStatusBar
-    }
-    
-    /// Private callbacks to YPImagePicker
-    public var didClose:(() -> Void)?
-    public var didSelectItems: (([YPMediaItem]) -> Void)?
-    
     public enum Mode {
         case library
         case camera
         case video
     }
-    
+    let albumsManager = YPAlbumsManager()
     private var libraryVC: YPLibraryVC?
     private var cameraVC: YPCameraVC?
     private var videoVC: YPVideoCaptureVC?
-    
+    public weak var pickerVCDelegate: YPPickerVCDelegate?
+    public var libraryTitle: String? {
+        libraryVC?.title
+    }
+    public var cameraTitle: String? {
+        cameraVC?.title
+    }
+    public var videoTitle: String? {
+        videoVC?.title
+    }
+    public var isNextable: Bool {
+        libraryVC?.selectedItems.count ?? 0 >= YPConfig.library.minNumberOfItems
+    }
     public var mode = Mode.camera
-    
     public var capturedImage: UIImage?
+    /// Private callbacks to YPImagePicker
+    public var didClose:(() -> Void)?
+    public var didSelectItems: (([YPMediaItem]) -> Void)?
+    var shouldHideStatusBar = false
+    var initialStatusBarHidden = false
+    override open var prefersStatusBarHidden: Bool {
+        return (shouldHideStatusBar || initialStatusBarHidden) && YPConfig.hidesStatusBar
+    }
     
     open override func viewDidLoad() {
         super.viewDidLoad()
