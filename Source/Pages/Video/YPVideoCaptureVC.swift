@@ -41,7 +41,7 @@ internal class YPVideoCaptureVC: UIViewController, YPPermissionCheckable {
     override func viewDidLoad() {
         super.viewDidLoad()
         v.flashButton.isHidden = (true || YPConfig.flashButtonHidden)
-        v.timeElapsedLabel.isHidden = false // Show the time elapsed label since we're in the video screen.
+        //v.timeElapsedLabel.isHidden = false // Show the time elapsed label since we're in the video screen.
         setupButtons()
         linkButtons()
         
@@ -209,8 +209,8 @@ internal class YPVideoCaptureVC: UIViewController, YPPermissionCheckable {
                               for: .normal)
         v.flipButton.isEnabled = !state.isRecording
         v.progressBar.progress = state.progress
+        v.timeElapsedLabel.isHidden = state.timeElapsed < YPConfig.video.recordableTime
         v.timeElapsedLabel.text = YPHelper.formattedStrigFrom(state.timeElapsed)
-        
         // Animate progress bar changes.
         UIView.animate(withDuration: 1, animations: v.progressBar.layoutIfNeeded)
     }

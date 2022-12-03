@@ -13,6 +13,7 @@ import Photos
 public protocol YPPickerVCDelegate: AnyObject {
     func libraryHasNoItems()
     func shouldAddToSelection(indexPath: IndexPath, numSelections: Int) -> Bool
+    func removeSelectionItems(_ identifier: String?)
 }
 
 open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
@@ -359,6 +360,10 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
 }
 
 extension YPPickerVC: YPLibraryViewDelegate {
+    public func libraryViewRemoveSelectionItems(_ identifier: String?) {
+        pickerVCDelegate?.removeSelectionItems(identifier)
+    }
+    
     
     public func libraryViewDidTapNext() {
         libraryVC?.isProcessing = true

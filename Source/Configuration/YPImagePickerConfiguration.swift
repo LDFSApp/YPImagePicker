@@ -255,6 +255,7 @@ public struct YPConfigVideo {
     /// Choose the result video extension if you trim or compress a video. Defaults to mov.
     public var fileType: AVFileType = .mov
     
+    public var recordableTime: TimeInterval = 3.0
     /// Defines the time limit for recording videos.
     /// Default is 60 seconds.
     public var recordingTimeLimit: TimeInterval = 60.0

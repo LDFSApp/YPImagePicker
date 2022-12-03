@@ -274,6 +274,10 @@ extension ExampleViewController {
 
 // YPImagePickerDelegate
 extension ExampleViewController: YPImagePickerDelegate {
+    func removeSelectionItems(_ identifier: String?) {
+        
+    }
+    
     func imagePickerHasNoItemsInLibrary(_ picker: YPImagePicker) {
         // PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
     }

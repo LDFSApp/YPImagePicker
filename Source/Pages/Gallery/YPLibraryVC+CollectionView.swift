@@ -60,7 +60,7 @@ extension YPLibraryVC {
             $0.assetIdentifier == mediaManager.getAsset(at: indexPath.row)?.localIdentifier
 		}) {
             selectedItems.remove(at: positionIndex)
-
+            self.delegate?.libraryViewRemoveSelectionItems(mediaManager.getAsset(at: indexPath.row)?.localIdentifier)
             // Refresh the numbers
             let selectedIndexPaths = selectedItems.map { IndexPath(row: $0.index, section: 0) }
             v.collectionView.reloadItems(at: selectedIndexPaths)
