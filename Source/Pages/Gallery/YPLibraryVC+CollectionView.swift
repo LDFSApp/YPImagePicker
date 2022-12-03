@@ -87,7 +87,7 @@ extension YPLibraryVC {
             print("No asset to add to selection.")
             return
         }
-
+        delegate?.libraryViewAddSelectionItems(asset.localIdentifier)
         let newSelection = YPLibrarySelection(index: indexPath.row, assetIdentifier: asset.localIdentifier)
         selectedItems.append(newSelection)
         checkLimit()
