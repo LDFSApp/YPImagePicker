@@ -274,8 +274,8 @@ extension ExampleViewController {
 
 // YPImagePickerDelegate
 extension ExampleViewController: YPImagePickerDelegate {
-    func addSelectionItem(_ asset: Any?) {
-        
+    func addSelectionItem(_ asset: Any?) -> Bool {
+        return true
     }
     
     func removeSelectionItem(_ asset: Any?) {

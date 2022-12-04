@@ -14,7 +14,7 @@ public protocol YPImagePickerDelegate: AnyObject {
     func imagePickerHasNoItemsInLibrary(_ picker: YPImagePicker)
     func shouldAddToSelection(indexPath: IndexPath, numSelections: Int) -> Bool
     func removeSelectionItem(_ asset: Any?)
-    func addSelectionItem(_ asset: Any?)
+    func addSelectionItem(_ asset: Any?) -> Bool
 }
 
 open class YPImagePicker: UINavigationController {
@@ -196,7 +196,7 @@ extension YPImagePicker: YPPickerVCDelegate {
         self.imagePickerDelegate?.removeSelectionItem(asset)
     }
     
-    public func addSelectionItem(_ asset: Any?) {
-        self.imagePickerDelegate?.addSelectionItem(asset)
+    public func addSelectionItem(_ asset: Any?) -> Bool {
+        self.imagePickerDelegate?.addSelectionItem(asset) ?? true
     }
 }

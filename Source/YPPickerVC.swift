@@ -14,7 +14,7 @@ public protocol YPPickerVCDelegate: AnyObject {
     func libraryHasNoItems()
     func shouldAddToSelection(indexPath: IndexPath, numSelections: Int) -> Bool
     func removeSelectionItem(_ asset: Any?)
-    func addSelectionItem(_ asset: Any?)
+    func addSelectionItem(_ asset: Any?) -> Bool
 }
 
 open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
@@ -350,8 +350,8 @@ extension YPPickerVC: YPLibraryViewDelegate {
         pickerVCDelegate?.removeSelectionItem(asset)
     }
     
-    public func libraryViewAddSelectionItem(_ asset: Any?) {
-        pickerVCDelegate?.addSelectionItem(asset)
+    public func libraryViewAddSelectionItem(_ asset: Any?) -> Bool {
+        pickerVCDelegate?.addSelectionItem(asset) ?? true
     }
     
     public func libraryViewDidTapNext() {
