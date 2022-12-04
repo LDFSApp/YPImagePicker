@@ -60,7 +60,7 @@ extension YPLibraryVC {
             $0.assetIdentifier == mediaManager.getAsset(at: indexPath.row)?.localIdentifier
 		}) {
             selectedItems.remove(at: positionIndex)
-            self.delegate?.libraryViewRemoveSelectionItems(mediaManager.getAsset(at: indexPath.row)?.localIdentifier)
+            self.delegate?.libraryViewRemoveSelectionItem(mediaManager.getAsset(at: indexPath.row))
             // Refresh the numbers
             let selectedIndexPaths = selectedItems.map { IndexPath(row: $0.index, section: 0) }
             v.collectionView.reloadItems(at: selectedIndexPaths)
@@ -87,7 +87,7 @@ extension YPLibraryVC {
             print("No asset to add to selection.")
             return
         }
-        delegate?.libraryViewAddSelectionItems(asset.localIdentifier)
+        delegate?.libraryViewAddSelectionItem(asset)
         let newSelection = YPLibrarySelection(index: indexPath.row, assetIdentifier: asset.localIdentifier)
         selectedItems.append(newSelection)
         checkLimit()

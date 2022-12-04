@@ -13,8 +13,8 @@ import Photos
 public protocol YPPickerVCDelegate: AnyObject {
     func libraryHasNoItems()
     func shouldAddToSelection(indexPath: IndexPath, numSelections: Int) -> Bool
-    func removeSelectionItems(_ identifier: String?)
-    func addSelectionItems(_ identifier: String?)
+    func removeSelectionItem(_ asset: Any?)
+    func addSelectionItem(_ asset: Any?)
 }
 
 open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
@@ -53,22 +53,17 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
     
     open override func viewDidLoad() {
         super.viewDidLoad()
-
         view.backgroundColor = YPConfig.colors.safeAreaBackgroundColor
-        
         delegate = self
-        
         // Force Library only when using `minNumberOfItems`.
         if YPConfig.library.minNumberOfItems > 1 {
             YPImagePickerConfiguration.shared.screens = [.library]
         }
-        
         // Library
         if YPConfig.screens.contains(.library) {
             libraryVC = YPLibraryVC()
             libraryVC?.delegate = self
         }
-        
         // Camera
         if YPConfig.screens.contains(.photo) {
             cameraVC = YPCameraVC()
@@ -77,7 +72,6 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
                                                                          fromCamera: true))])
             }
         }
-        
         // Video
         if YPConfig.screens.contains(.video) {
             videoVC = YPVideoCaptureVC()
@@ -88,7 +82,6 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
                                                                fromCamera: true))])
             }
         }
-        
         // Show screens
         var vcs = [UIViewController]()
         for screen in YPConfig.screens {
@@ -108,7 +101,6 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
             }
         }
         controllers = vcs
-        
         // Select good mode
         if YPConfig.screens.contains(YPConfig.startOnScreen) {
             switch YPConfig.startOnScreen {
@@ -120,12 +112,10 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
                 mode = .video
             }
         }
-        
         // Select good screen
         if let index = YPConfig.screens.firstIndex(of: YPConfig.startOnScreen) {
             startOnPage(index)
         }
-        
         YPHelper.changeBackButtonIcon(self)
         YPHelper.changeBackButtonTitle(self)
     }
@@ -133,7 +123,6 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraVC?.v.shotButton.isEnabled = true
-        
         updateMode(with: currentController)
     }
     
@@ -167,10 +156,8 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
     
     open func updateMode(with vc: UIViewController) {
         stopCurrentCamera()
-        
         // Set new mode
         mode = modeFor(vc: vc)
-        
         // Re-trigger permission check
         if let vc = vc as? YPLibraryVC {
             vc.doAfterLibraryPermissionCheck { [weak vc] in
@@ -181,7 +168,6 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         } else if let videoVC = vc as? YPVideoCaptureVC {
             videoVC.start()
         }
-
         updateUI()
     }
     
@@ -311,7 +297,6 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
                                                                 target: self,
                                                                 action: #selector(done))
             navigationItem.rightBarButtonItem?.tintColor = YPConfig.colors.tintColor
-
             // Disable Next Button until minNumberOfItems is reached.
             navigationItem.rightBarButtonItem?.isEnabled =
                 libraryVC!.selectedItems.count >= YPConfig.library.minNumberOfItems
@@ -361,12 +346,12 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
 }
 
 extension YPPickerVC: YPLibraryViewDelegate {
-    public func libraryViewRemoveSelectionItems(_ identifier: String?) {
-        pickerVCDelegate?.removeSelectionItems(identifier)
+    public func libraryViewRemoveSelectionItem(_ asset: Any?) {
+        pickerVCDelegate?.removeSelectionItem(asset)
     }
     
-    public func libraryViewAddSelectionItems(_ identifier: String?) {
-        pickerVCDelegate?.addSelectionItems(identifier)
+    public func libraryViewAddSelectionItem(_ asset: Any?) {
+        pickerVCDelegate?.addSelectionItem(asset)
     }
     
     public func libraryViewDidTapNext() {
@@ -400,10 +385,11 @@ extension YPPickerVC: YPLibraryViewDelegate {
         if #available(iOS 11.0, *) {
             offset += v.safeAreaInsets.bottom
         }
-        
-        v.header.svBottomConstraint?.constant = enabled ? offset : 0
-        v.layoutIfNeeded()
-        updateUI()
+        DispatchQueue.main.async {
+            //self.v.header.svBottomConstraint?.constant = enabled ? offset : 0
+            self.v.layoutIfNeeded()
+            self.updateUI()
+        }
     }
     
     public func libraryViewHaveNoItems() {
