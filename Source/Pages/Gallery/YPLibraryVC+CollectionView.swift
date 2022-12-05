@@ -87,7 +87,10 @@ extension YPLibraryVC {
             print("No asset to add to selection.")
             return
         }
-        if delegate?.libraryViewAddSelectionItem(asset) ?? true == false {
+        if let cell = v.collectionView.cellForItem(at: indexPath) as? YPLibraryViewCell, cell.tag == 1000,
+            delegate?.libraryViewAddSelectionItem(nil) ?? true == false {
+                return
+        } else if delegate?.libraryViewAddSelectionItem(asset) ?? true == false {
             return 
         }
         let newSelection = YPLibrarySelection(index: indexPath.row, assetIdentifier: asset.localIdentifier)
@@ -135,8 +138,10 @@ extension YPLibraryVC: UICollectionViewDelegate {
                                     // set image only if it's still showing the same asset.
                                     if cell.representedAssetIdentifier == asset.localIdentifier && image != nil {
                                         cell.imageView.image = image
+                                        cell.tag = 1111
                                     } else {
                                         cell.imageView.image = YPConfig.icons.defaultImage
+                                        cell.tag = 1000
                                     }
         }
         
