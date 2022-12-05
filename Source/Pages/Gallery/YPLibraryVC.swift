@@ -114,6 +114,7 @@ internal final class YPLibraryVC: UIViewController, YPPermissionCheckable {
 
             strongSelf.updateCropInfo()
         }
+        v.assetZoomableView.isUserInteractionEnabled = false
     }
     
     public override func viewDidAppear(_ animated: Bool) {

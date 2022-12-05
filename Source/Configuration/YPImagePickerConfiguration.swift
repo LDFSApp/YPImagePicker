@@ -232,7 +232,7 @@ public struct YPConfigLibrary {
     public var preselectedItems: [YPMediaItem]?
     
     /// Set the overlay type shown on top of the selected library item
-    public var itemOverlayType: YPItemOverlayType = .grid
+    public var itemOverlayType: YPItemOverlayType = .none
 }
 
 /// Encapsulates video specific settings.
