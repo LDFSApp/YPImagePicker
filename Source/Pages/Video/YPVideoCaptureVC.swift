@@ -209,8 +209,10 @@ internal class YPVideoCaptureVC: UIViewController, YPPermissionCheckable {
                               for: .normal)
         if state.isRecording {
             v.shotButton.isEnabled = !(state.timeElapsed < YPConfig.video.recordableTime)
+            v.shotButton.isHidden = state.timeElapsed < YPConfig.video.recordableTime
         } else {
             v.shotButton.isEnabled = true
+            v.shotButton.isHidden = false
         }
         v.flipButton.isEnabled = !state.isRecording
         v.progressBar.progress = state.progress
