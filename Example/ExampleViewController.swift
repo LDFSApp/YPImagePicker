@@ -275,6 +275,9 @@ extension ExampleViewController {
 // YPImagePickerDelegate
 extension ExampleViewController: YPImagePickerDelegate {
     func addSelectionItem(_ asset: Any?) -> Bool {
+        guard let asset = asset as? PHAsset else { return false }
+        let resources = PHAssetResource.assetResources(for: asset)
+        let isLocal = resources.first?.value(forKey: "locallyAvailable")
         return true
     }
     

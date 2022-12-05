@@ -214,7 +214,7 @@ internal class YPVideoCaptureVC: UIViewController, YPPermissionCheckable {
         }
         v.flipButton.isEnabled = !state.isRecording
         v.progressBar.progress = state.progress
-        v.timeElapsedLabel.isHidden = state.timeElapsed < YPConfig.video.recordableTime
+        v.timeElapsedLabel.isHidden = false//state.timeElapsed < YPConfig.video.recordableTime
         v.timeElapsedLabel.text = YPHelper.formattedStrigFrom(state.timeElapsed)
         // Animate progress bar changes.
         UIView.animate(withDuration: 1, animations: v.progressBar.layoutIfNeeded)

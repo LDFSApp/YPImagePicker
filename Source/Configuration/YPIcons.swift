@@ -33,4 +33,5 @@ public struct YPIcons {
     public var cameraOffImage: UIImage = imageFromBundle("photo-cameraOff")
     public var videoOnImage: UIImage = imageFromBundle("video-camera")
     public var videoOffImage: UIImage = imageFromBundle("video-cameraOff")
+    public var defaultImage: UIImage = imageFromBundle("yp_play")
 }

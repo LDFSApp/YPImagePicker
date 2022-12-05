@@ -135,6 +135,8 @@ extension YPLibraryVC: UICollectionViewDelegate {
                                     // set image only if it's still showing the same asset.
                                     if cell.representedAssetIdentifier == asset.localIdentifier && image != nil {
                                         cell.imageView.image = image
+                                    } else {
+                                        cell.imageView.image = YPConfig.icons.defaultImage
                                     }
         }
         
@@ -206,11 +208,11 @@ extension YPLibraryVC: UICollectionViewDelegate {
     }
     
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return isProcessing == false
+        return true
     }
     
     public func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
-        return isProcessing == false
+        return true
     }
 }
 
