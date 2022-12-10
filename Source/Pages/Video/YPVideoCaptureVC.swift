@@ -124,7 +124,7 @@ internal class YPVideoCaptureVC: UIViewController, YPPermissionCheckable {
         DispatchQueue.main.async {
             UIApplication.shared.isIdleTimerDisabled = true
         }
-        
+        v.flipButton.isHidden = true
         videoHelper.startRecording()
         updateState {
             $0.isRecording = true
@@ -136,7 +136,7 @@ internal class YPVideoCaptureVC: UIViewController, YPPermissionCheckable {
         DispatchQueue.main.async {
             UIApplication.shared.isIdleTimerDisabled = false
         }
-        
+        v.flipButton.isHidden = false
         videoHelper.stopRecording()
         updateState {
             $0.isRecording = false
