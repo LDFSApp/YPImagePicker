@@ -83,6 +83,7 @@ extension YPLibraryVC {
                 }
                 return asset?.localIdentifier != mediaManager.getAsset(at: indexPath.row)?.localIdentifier
             })
+            v.collectionView.reloadData()
             checkLimit()
         }
     }
@@ -113,10 +114,11 @@ extension YPLibraryVC {
             var v = YPMediaVideo(thumbnail: UIImage(), videoURL: URL(fileURLWithPath: ""))
             v.asset = asset
             preselectedItems?.append(YPMediaItem.video(v: v))
-        @unknown default:
+        default:
             break
         }
         selectedItems.append(newSelection)
+        v.collectionView.reloadData()
         checkLimit()
     }
     
