@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 extension YPLibraryVC {
     var isLimitExceeded: Bool { return selectedItems.count >= YPConfig.library.maxNumberOfItems }
@@ -72,7 +73,16 @@ extension YPLibraryVC {
                 currentlySelectedIndex = previouslySelectedIndexPath.row
                 changeAsset(mediaManager.getAsset(at: previouslySelectedIndexPath.row))
             }
-			
+            preselectedItems = preselectedItems?.filter({ item in
+                var asset: PHAsset?
+                switch item {
+                case .photo(p: let p):
+                    asset = p.asset
+                case .video(v: let v):
+                    asset = v.asset
+                }
+                return asset?.localIdentifier != mediaManager.getAsset(at: indexPath.row)?.localIdentifier
+            })
             checkLimit()
         }
     }
@@ -94,6 +104,18 @@ extension YPLibraryVC {
             return 
         }
         let newSelection = YPLibrarySelection(index: indexPath.row, assetIdentifier: asset.localIdentifier)
+        switch asset.mediaType {
+        case .image:
+            var p = YPMediaPhoto(image: UIImage())
+            p.asset = asset
+            preselectedItems?.append(YPMediaItem.photo(p: p))
+        case .video:
+            var v = YPMediaVideo(thumbnail: UIImage(), videoURL: URL(fileURLWithPath: ""))
+            v.asset = asset
+            preselectedItems?.append(YPMediaItem.video(v: v))
+        @unknown default:
+            break
+        }
         selectedItems.append(newSelection)
         checkLimit()
     }
@@ -161,7 +183,7 @@ extension YPLibraryVC: UICollectionViewDelegate {
                                                       scrollViewZoomScale: currentSelection.scrollViewZoomScale,
                                                       assetIdentifier: currentSelection.assetIdentifier)
             }
-            if let preselectedItems = YPConfig.library.preselectedItems, preselectedItems.count > 0 {
+            if let preselectedItems = preselectedItems, preselectedItems.count > 0 {
                 let aIndex = preselectedItems.firstIndex { aItem in
                     switch aItem {
                     case .photo(p: let p):
@@ -170,7 +192,7 @@ extension YPLibraryVC: UICollectionViewDelegate {
                         return v.asset?.localIdentifier == asset.localIdentifier
                     }
                 }
-                cell.multipleSelectionIndicator.set(number: (aIndex ?? index) + 1)
+                cell.multipleSelectionIndicator.set(number: (aIndex ?? preselectedItems.count) + 1)
             } else {
                 cell.multipleSelectionIndicator.set(number: index + 1) // start at 1, not 0
             }

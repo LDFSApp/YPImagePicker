@@ -21,6 +21,7 @@ internal final class YPLibraryVC: UIViewController, YPPermissionCheckable {
     internal var currentlySelectedIndex: Int = 0
     internal let panGestureHelper = PanGestureHelper()
     internal var isInitialized = false
+    internal var preselectedItems: [YPMediaItem]?
 
     // MARK: - Init
 
@@ -59,7 +60,7 @@ internal final class YPLibraryVC: UIViewController, YPPermissionCheckable {
                                                                  || YPConfig.library.defaultMultipleSelectionButtonHidden)
         v.maxNumberWarningLabel.text = String(format: YPConfig.wordings.warningMaxItemsLimit,
 											  YPConfig.library.maxNumberOfItems)
-        
+        preselectedItems = YPConfig.library.preselectedItems
         if let preselectedItems = YPConfig.library.preselectedItems,
            !preselectedItems.isEmpty {
             selectedItems = preselectedItems.compactMap { item -> YPLibrarySelection? in
@@ -73,7 +74,6 @@ internal final class YPLibraryVC: UIViewController, YPPermissionCheckable {
                 guard let asset = itemAsset else {
                     return nil
                 }
-                
                 // The negative index will be corrected in the collectionView:cellForItemAt:
                 return YPLibrarySelection(index: -1, assetIdentifier: asset.localIdentifier)
             }
