@@ -12,6 +12,7 @@ import PhotosUI
 
 internal final class YPLibraryVC: UIViewController, YPPermissionCheckable {
     internal weak var delegate: YPLibraryViewDelegate?
+    internal weak var parents: YPPickerVC?
     internal var v = YPLibraryView(frame: .zero)
     internal var isProcessing = false // true if video or image is in processing state
     internal var selectedItems = [YPLibrarySelection]()

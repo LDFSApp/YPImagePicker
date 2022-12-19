@@ -28,6 +28,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
     private var cameraVC: YPCameraVC?
     private var videoVC: YPVideoCaptureVC?
     public weak var pickerVCDelegate: YPPickerVCDelegate?
+    public var fromCameraMediaCountOffset: Int = 0
     public var libraryTitle: String? {
         libraryVC?.title
     }
@@ -63,6 +64,7 @@ open class YPPickerVC: YPBottomPager, YPBottomPagerDelegate {
         if YPConfig.screens.contains(.library) {
             libraryVC = YPLibraryVC()
             libraryVC?.delegate = self
+            libraryVC?.parents = self
         }
         // Camera
         if YPConfig.screens.contains(.photo) {
