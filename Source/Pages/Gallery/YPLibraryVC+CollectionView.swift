@@ -161,8 +161,19 @@ extension YPLibraryVC: UICollectionViewDelegate {
                                                       scrollViewZoomScale: currentSelection.scrollViewZoomScale,
                                                       assetIdentifier: currentSelection.assetIdentifier)
             }
-            let fromCameraMediaCountOffset = self.parents?.fromCameraMediaCountOffset ?? 0
-            cell.multipleSelectionIndicator.set(number: index + 1 + fromCameraMediaCountOffset) // start at 1, not 0
+            if let preselectedItems = YPConfig.library.preselectedItems, preselectedItems.count > 0 {
+                let aIndex = preselectedItems.firstIndex { aItem in
+                    switch aItem {
+                    case .photo(p: let p):
+                        return p.asset?.localIdentifier == asset.localIdentifier
+                    case .video(v: let v):
+                        return v.asset?.localIdentifier == asset.localIdentifier
+                    }
+                }
+                cell.multipleSelectionIndicator.set(number: (aIndex ?? index) + 1)
+            } else {
+                cell.multipleSelectionIndicator.set(number: index + 1) // start at 1, not 0
+            }
         } else {
             cell.multipleSelectionIndicator.set(number: nil)
         }
